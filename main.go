@@ -114,10 +114,10 @@ func (r Running) Calories() float64 {
 func (r Running) TrainingInfo() InfoMessage {
 	// вставьте ваш код ниже
 	return InfoMessage{
-		TrainingType: r.Training.TrainingType,
-		Duration:     r.Training.Duration,
-		Distance:     r.distance(),
-		Speed:        r.meanSpeed(),
+		TrainingType: r.Training.TrainingInfo().TrainingType,
+		Duration:     r.Training.TrainingInfo().Duration,
+		Distance:     r.Training.distance(),
+		Speed:        r.Training.meanSpeed(),
 		Calories:     r.Calories(),
 	}
 }
@@ -147,7 +147,7 @@ func (w Walking) Calories() float64 {
 		return 0
 	}
 	walkingMeanSpeed := w.meanSpeed() * KmHInMsec
-	return ((CaloriesWeightMultiplier*w.Training.Weight + (math.Pow(walkingMeanSpeed, 2)/w.Height)*CaloriesSpeedHeightMultiplier*w.Training.Weight) * w.Duration.Hours() * MinInHours)
+	return ((CaloriesWeightMultiplier*w.Training.Weight + (math.Pow(walkingMeanSpeed, 2)/(w.Height/CmInM))*CaloriesSpeedHeightMultiplier*w.Training.Weight) * w.Duration.Hours() * MinInHours)
 }
 
 // TrainingInfo возвращает структуру InfoMessage с информацией о проведенной тренировке.
@@ -155,10 +155,10 @@ func (w Walking) Calories() float64 {
 func (w Walking) TrainingInfo() InfoMessage {
 	// вставьте ваш код ниже
 	return InfoMessage{
-		TrainingType: w.Training.TrainingType,
-		Duration:     w.Training.Duration,
-		Distance:     w.distance(),
-		Speed:        w.meanSpeed(),
+		TrainingType: w.Training.TrainingInfo().TrainingType,
+		Duration:     w.Training.TrainingInfo().Duration,
+		Distance:     w.Training.distance(),
+		Speed:        w.Training.meanSpeed(),
 		Calories:     w.Calories(),
 	}
 }
